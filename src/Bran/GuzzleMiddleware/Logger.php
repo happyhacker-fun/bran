@@ -37,7 +37,6 @@ class Logger
                 $cost = $stats->getTransferTime();
             };
             $promise = $handler($request, $options);
-//            Timer::start('guzzle');
 
             if (get_class($promise) === RejectedPromise::class) {
                 $req = self::logRequest($request);
