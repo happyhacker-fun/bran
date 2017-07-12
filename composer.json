@@ -1,0 +1,28 @@
+{
+    "name": "pocteam/bran",
+    "description": "A HTTP api testing framework based on phpunit and guzzle",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WANGQINGCHUN",
+            "email": "WANGQINGCHUN@kingsoft.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^6.0",
+        "guzzlehttp/guzzle": "^6.0",
+        "monolog/monolog": "^1.23",
+        "ramsey/uuid": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bran\\": "src/Bran"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Bran\\": "tests/Bran"
+        }
+    }
+}
