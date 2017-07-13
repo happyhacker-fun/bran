@@ -38,6 +38,30 @@ class ResponseEntity
         return $this;
     }
 
+    public function assertGreaterThan($expected, $actual)
+    {
+        Assert::assertGreaterThan($expected, $actual);
+        return $this;
+    }
+
+    public function assertGreaterThanOrEqual($expected, $actual)
+    {
+        Assert::assertGreaterThanOrEqual($expected, $actual);
+        return $this;
+    }
+
+    public function assertLessThan($expected, $actual)
+    {
+        Assert::assertLessThan($expected, $actual);
+        return $this;
+    }
+
+    public function assertLessThanOrEqual($expected, $actual)
+    {
+        Assert::assertLessThanOrEqual($expected, $actual);
+        return $this;
+    }
+
     public function assertStatusCode($expected)
     {
         Assert::assertEquals((int)$expected, (int)$this->actualStatusCode);
@@ -62,33 +86,45 @@ class ResponseEntity
         return $this;
     }
 
-    public function assertJsonBodyAttributeEquals($attribute, $value)
+    public function assertJsonBodyAttributeEquals($value, $dottedAttribute)
     {
-        Assert::assertEquals($value, $this->parsedBody[$attribute]);
+        Assert::assertEquals($value,$this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
     }
 
-    public function assertJsonBodyAttributeGreaterThan($attribute, $value)
+    public function assertJsonBodyAttributeGreaterThan($value, $dottedAttribute)
     {
-        Assert::assertGreaterThan($value, $this->parsedBody[$attribute]);
+        Assert::assertGreaterThan($value, $this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
     }
 
-    public function assertJsonBodyAttributeGreaterThanOrEqual($attribute, $value)
+    public function assertJsonBodyAttributeGreaterThanOrEqual($value, $dottedAttribute)
     {
-        Assert::assertGreaterThanOrEqual($value, $this->parsedBody[$attribute]);
+        Assert::assertGreaterThanOrEqual($value, $this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
     }
 
-    public function assertJsonBodyAttributeLessThan($attribute, $value)
+    public function assertJsonBodyAttributeLessThan($value, $dottedAttribute)
     {
-        Assert::assertLessThan($value, $this->parsedBody[$attribute]);
+        Assert::assertLessThan($value, $this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
     }
 
-    public function assertJsonBodyAttributeLessThanOrEqual($attribute, $value)
+    public function assertJsonBodyAttributeLessThanOrEqual($value, $dottedAttribute)
     {
-        Assert::assertLessThanOrEqual($value, $this->parsedBody[$attribute]);
+        Assert::assertLessThanOrEqual($value, $this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
+    }
+
+    private function parseDotSeparatedAttributes($dotted)
+    {
+        $attributes = explode('.', $dotted);
+
+        $data = $this->parsedBody;
+        foreach ($attributes as $attribute) {
+            $data = $data[$attribute];
+        }
+
+        return $data;
     }
 }
