@@ -23,11 +23,13 @@ class ResponseEntity
     protected $actualErrorCode;
 
     public $parsedBody;
+    public $cookie;
 
     public function __construct(Response $response)
     {
         $this->actualStatusCode = $response->getStatusCode();
         $this->actualHeaders = $response->getHeaders();
+        $this->cookie = $response->getHeaderLine('Set-Cookie');
 
         $this->parsedBody = json_decode($response->getBody(), true);
     }

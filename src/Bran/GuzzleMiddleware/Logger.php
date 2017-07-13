@@ -13,9 +13,6 @@ use GuzzleHttp\Promise\RejectedPromise;
 use GuzzleHttp\TransferStats;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
-use PocFramework\Support\Log;
-use PocFramework\Utils\ContentTypes;
-use PocFramework\Utils\Timer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -134,7 +131,7 @@ class Logger
 
     protected static function isReadable($contentType)
     {
-        return isset($contentType[0]) && $contentType[0] === 'application/json';
+        return isset($contentType[0]) && in_array($contentType[0], ['application/json', 'application/json;charset=utf-8', 'application/x-www-form-urlencoded'], true);
     }
 
 }
