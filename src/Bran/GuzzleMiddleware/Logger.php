@@ -59,7 +59,6 @@ class Logger
                         self::makeRpcLogger()->info($line);
                     }
 
-
                     return $response;
                 }
             );
@@ -71,20 +70,20 @@ class Logger
         $arr = ['curl', '-X'];
         $arr[] = $r->getMethod();
         foreach ($r->getHeaders() as $name => $values) {
-            foreach ($values as $value) {
+            foreach ((array)$values as $value) {
                 $arr[] = '-H';
                 $arr[] = "'$name:$value'";
             }
         }
 
-        $contentType = $r->getHeaderLine('Content-Type');
-//        if (ContentTypes::isReadable($contentType)) {
-//            $body = (string)$r->getBody();
-//            if ($body) {
-//                $arr[] = '-d';
-//                $arr[] = "'$body'";
-//            }
-//        }
+        $contentType = $r->getHeader('Content-Type');
+        if (self::isReadable($contentType)) {
+            $body = (string)$r->getBody();
+            if ($body) {
+                $arr[] = '-d';
+                $arr[] = "'$body'";
+            }
+        }
 
         $uri = (string)$r->getUri();
         $arr[] = "'$uri'";
@@ -103,7 +102,7 @@ class Logger
             $handler = new RotatingFileHandler('rpc.log');
             $logger = new \Monolog\Logger('rpc');
             $formatterWithRequestId = new LineFormatter(
-                "[%datetime%] [" . REQUEST_ID . "] %channel%.%level_name%: %message% %context% %extra%\n",
+                '[%datetime%] [' . REQUEST_ID . "] %channel%.%level_name%: %message% %context% %extra%\n",
                 LineFormatter::SIMPLE_DATE,
                 false,
                 true
@@ -118,19 +117,24 @@ class Logger
 
     protected static function logResponse(ResponseInterface $response)
     {
-        $contentType = $response->getHeaderLine('Content-Type');
+        $contentType = $response->getHeader('Content-Type');
         $data = [
             'httpCode#' . $response->getStatusCode(),
             'reasonPhrase' . $response->getReasonPhrase(),
         ];
 
-//        if (ContentTypes::isReadable($contentType)) {
-//            $data[] = 'response#' . (string)$response->getBody();
-//        } else {
-//            $data[] = 'response#';
-//        }
+        if (self::isReadable($contentType)) {
+            $data[] = 'response#' . (string)$response->getBody();
+        } else {
+            $data[] = 'response#';
+        }
 
         return $data;
+    }
+
+    protected static function isReadable($contentType)
+    {
+        return isset($contentType[0]) && $contentType[0] === 'application/json';
     }
 
 }

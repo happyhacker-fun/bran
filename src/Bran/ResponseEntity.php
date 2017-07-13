@@ -22,7 +22,7 @@ class ResponseEntity
     protected $actualData;
     protected $actualErrorCode;
 
-    protected $parsedBody;
+    public $parsedBody;
 
     public function __construct(Response $response)
     {
@@ -30,6 +30,12 @@ class ResponseEntity
         $this->actualHeaders = $response->getHeaders();
 
         $this->parsedBody = json_decode($response->getBody(), true);
+    }
+
+    public function assertEquals($expected, $actual)
+    {
+        Assert::assertEquals($expected, $actual);
+        return $this;
     }
 
     public function assertStatusCode($expected)
