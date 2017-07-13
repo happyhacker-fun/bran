@@ -186,6 +186,18 @@ class RavenTest extends Raven
             ->assertEquals('https://github.com/sfsheng0322/GlideImageView', $entity->parsedBody['results'][9]['url'])
             ->assertEquals('http://img.gank.io/6f9816fd-bada-4912-a133-6a7194d35292', $entity->parsedBody['results'][1]['images'][0]);
     }
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->clientConfig['headers']['Cookie'] = $this->login();
+    }
+
+    public function login()
+    {
+        $entity = $this->call('login');
+        return $entity->cookie;
+    }
 }
 
 ```
