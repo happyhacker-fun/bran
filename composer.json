@@ -13,18 +13,12 @@
         "guzzlehttp/guzzle": "^6.0",
         "monolog/monolog": "^1.23",
         "ramsey/uuid": "^3.6",
-        "subtlephp/middlewares": "^0.0.2"
-    },
-    "require-dev": {
+        "subtlephp/middlewares": "^0.0.2",
         "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {
-            "Bran\\": "src/Bran"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
+            "Bran\\": "src/Bran",
             "Tests\\Bran\\": "tests/Bran"
         }
     }
