@@ -9,10 +9,10 @@
 namespace Bran;
 
 
-use Bran\GuzzleMiddleware\Logger;
-use Bran\GuzzleMiddleware\UriReplacer;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
+use SubtlePHP\Middlewares\Guzzle\Logger;
+use SubtlePHP\Middlewares\Guzzle\UriReplacer;
 
 class ClientBuilder
 {
