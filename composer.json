@@ -11,7 +11,7 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.0",
-        "monolog/monolog": "^1.23",
+        "monolog/monolog": "^1,
         "ramsey/uuid": "^3.6",
         "phpunit/phpunit": "^6.0"
     },
