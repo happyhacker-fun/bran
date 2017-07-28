@@ -20,15 +20,21 @@ class Raven extends TestCase
      */
     protected $apiConfig;
 
+    /**
+     * @var array
+     */
+    protected $defaultApiConfig = [];
+
     public function call($apiName, array $options = [])
     {
-        if (!array_key_exists($apiName, $this->apiConfig)) {
+        $apiConfig = $this->apiConfig + $this->defaultApiConfig;
+        if (!array_key_exists($apiName, $apiConfig)) {
             throw new \RuntimeException('Api ' . $apiName . ' is not set');
         }
 
         $client = ClientBuilder::build(array_replace_recursive($this->clientConfig, $options));
 
-        $api = $this->apiConfig[$apiName];
+        $api = $apiConfig[$apiName];
 
         $headers = $this->prepareHeaders($api, $options);
 

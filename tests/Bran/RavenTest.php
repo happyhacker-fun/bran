@@ -8,9 +8,7 @@
 
 namespace Tests\Bran;
 
-use Bran\Raven;
-
-class RavenTest extends Raven
+class RavenTest extends Base
 {
     protected $clientConfig = [
         'base_uri' => 'http://gank.io',
