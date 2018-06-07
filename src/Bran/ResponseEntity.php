@@ -117,6 +117,11 @@ class ResponseEntity
         Assert::assertLessThanOrEqual($value, $this->parseDotSeparatedAttributes($dottedAttribute));
         return $this;
     }
+    
+    public function getAttributesByDot($dotted)
+    {
+        return $this->parseDotSeparatedAttributes($dotted);
+    }
 
     private function parseDotSeparatedAttributes($dotted)
     {
